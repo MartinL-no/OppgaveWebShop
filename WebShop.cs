@@ -27,6 +27,9 @@ internal class WebShop
         var gameToBuy = ChooseGame();
         ShoppingCart.Add(gameToBuy);
         Ship(gameToBuy);
+
+        Thread.Sleep(2000);
+        Console.Clear();
     }
 
     private GameItem ChooseGame()

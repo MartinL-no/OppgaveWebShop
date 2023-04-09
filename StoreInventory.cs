@@ -7,10 +7,10 @@ internal class StoreInventory
     {
         InventoryList = new List<GameItem>
         {
-            new PUBG(),
-            new PokemonLetsGoEevee(),
+            new BattleField(),
             new CyberPunk(),
-            new BattleField()
+            new PokemonLetsGoEevee(),
+            new PUBG()
         };
     }
 
