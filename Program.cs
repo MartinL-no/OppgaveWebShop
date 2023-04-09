@@ -4,7 +4,8 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            var storeInventory = new StoreInventory();
+            var webShop = new WebShop(storeInventory);
         }
     }
 }
