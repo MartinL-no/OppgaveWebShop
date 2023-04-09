@@ -21,34 +21,40 @@ internal class WebShop
     }
     private void HandleCommand() 
     { 
-        // Should read in input from users here 
-        // Inventory should print out information based on the choice the user made. 
-        Console.WriteLine("input the ID of game you want to buy"); 
-        var gameID = Console.ReadLine(); 
-        var gameToBuy = Inventory.InventoryList.Find(x => x.Id == gameID); 
+        var choice = Ask("Choose an option: ");
+        Inventory.PrintInventory(choice);
+
+        var gameToBuy = ChooseGame();
         ShoppingCart.Add(gameToBuy);
+        Ship(gameToBuy);
+    }
 
-        if (ShoppingCart.AreShippingOptions(gameToBuy))
+    private GameItem ChooseGame()
+    {
+        var gameID = Ask("input the ID of game you want to buy");
+
+        return Inventory.InventoryList.Find(x => x.Id == gameID);
+    }
+    private string? Ask(string question)
+    {
+        Console.WriteLine(question);
+        return Console.ReadLine();;
+    }
+    private void Ship(GameItem gameToBuy)
+    {
+        if (gameToBuy.AreShippingOptions)
         {
-            Console.WriteLine("choose a shipping option: ");
-            Console.WriteLine("1: Download"); 
-            Console.WriteLine("2: Ship"); 
-            var choice = Console.ReadLine();
-            if (choice == "1")
-            {
-                PrintDownloadMessage(gameToBuy.GameName); 
-            }
+            var shippingOption = Ask("choose a shipping option:\n1: Download\n2: Ship");
+            if (shippingOption == "1")
+                PrintDownloadMessage(gameToBuy.GameName);
             else
-            {
-                PrintShippingMessage(gameToBuy.GameName); 
-            } 
-        } 
-        else if (gameToBuy is IPhysicalCopy) PrintShippingMessage(gameToBuy.GameName);
-
-        else PrintDownloadMessage(gameToBuy.GameName);
-        //Check whether the game is to be shipped or downloaded 
-        //Print out with the Download or shipping method below 
-    } 
+                PrintShippingMessage(gameToBuy.GameName);
+        }
+        else if (gameToBuy is IPhysicalCopy)
+            PrintShippingMessage(gameToBuy.GameName);
+        else
+            PrintDownloadMessage(gameToBuy.GameName);
+    }
     private void PrintDownloadMessage(string gameName) 
     { 
         Console.WriteLine($"Game {gameName} will now be downloaded..");            

@@ -17,8 +17,5 @@ namespace OppgaveWebShop
         {
             Cart.Add(gameItem);
         }
-        public bool AreShippingOptions(GameItem gameItem) {
-            return gameItem is IPhysicalCopy && gameItem is IDownloadableCopy;
-        }
     }
 }
