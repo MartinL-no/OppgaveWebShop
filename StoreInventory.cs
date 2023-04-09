@@ -17,12 +17,12 @@ internal class StoreInventory
     public List<GameItem> ListPhysicalItems()
     {
         // to find all items in InventoryList that are sold in physical format
-        return InventoryList.Where(GameItem => GameItem is IPhysicalCopy).ToList();
+        return InventoryList.Where(g => g is IPhysicalCopy && !g.AreShippingOptions).ToList();
     }
 
     public List<GameItem> ListDownLoadable()
     {
-        return InventoryList.Where(GameItem => GameItem is IDownloadableCopy).ToList();
+        return InventoryList.Where(g => g is IDownloadableCopy  && !g.AreShippingOptions).ToList();
     }
     public void PrintInventory(string command)
     {           
